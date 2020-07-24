@@ -3,8 +3,8 @@ import {
   OrbitControls
 } from './vendor/OrbitControls'
 import {
-  OBJLoader
-} from './vendor/OBJLoader';
+  load
+} from './load';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -16,8 +16,13 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+const light = new THREE.PointLight(0xFFFFFF, 1, 100);
+light.position.set(-5, 5, 0);
+scene.add(light);
+
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set(0, 20, 100);
+camera.position.set(0, 2, 0);
+renderer.setClearColor(0xFFFFFF, 1)
 controls.update();
 
 function animate() {
@@ -30,16 +35,7 @@ function animate() {
   renderer.render(scene, camera);
 
 }
-
-const loader = new OBJLoader()
-loader.load(
-  '/assets/cassette/Cassette.obj',
-  function (obj) {
-    scene.add(obj)
-    animate()
-  },
-  function () {},
-  function (error) {
-    console.error(error)
-  }
-)
+load().then(obj => {
+  scene.add(obj)
+  animate()
+})
