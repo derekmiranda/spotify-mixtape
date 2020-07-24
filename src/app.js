@@ -2,16 +2,19 @@ import * as THREE from 'three';
 import {
   OrbitControls
 } from './vendor/OrbitControls'
+import {
+  OBJLoader
+} from './vendor/OBJLoader';
 
-var renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-var scene = new THREE.Scene();
+const scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
 
-var controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 //controls.update() must be called after any manual changes to the camera's transform
 camera.position.set(0, 20, 100);
@@ -27,4 +30,16 @@ function animate() {
   renderer.render(scene, camera);
 
 }
-animate();
+
+const loader = new OBJLoader()
+loader.load(
+  '/assets/cassette/Cassette.obj',
+  function (obj) {
+    scene.add(obj)
+    animate()
+  },
+  function () {},
+  function (error) {
+    console.error(error)
+  }
+)
