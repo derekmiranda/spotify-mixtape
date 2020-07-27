@@ -11,19 +11,20 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
-
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-
 const controls = new OrbitControls(camera, renderer.domElement);
 
-const light = new THREE.PointLight(0xFFFFFF, 1, 100);
-light.position.set(-5, 5, 0);
-scene.add(light);
-
-//controls.update() must be called after any manual changes to the camera's transform
-camera.position.set(0, 2, 0);
-renderer.setClearColor(0xFFFFFF, 1)
+camera.position.set(0, 0, 5);
+renderer.outputEncoding = THREE.sRGBEncoding;
 controls.update();
+
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.2)
+scene.add(ambientLight)
+
+const spotLight = new THREE.SpotLight(0xFFFFFF)
+spotLight.position.set(-1, 1, 1)
+spotLight.lookAt(0, 0, 0)
+scene.add(spotLight)
 
 function animate() {
 
@@ -35,7 +36,11 @@ function animate() {
   renderer.render(scene, camera);
 
 }
-load().then(obj => {
-  scene.add(obj)
+
+load().then(res => {
+  const [dae, textureMap] = res
+  scene.add(dae.scene)
+  const mat = new THREE.MeshStandardMaterial(textureMap)
+  dae.scene.children[0].material = mat
   animate()
 })

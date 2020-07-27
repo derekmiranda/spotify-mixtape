@@ -1,19 +1,19 @@
-import {
-  OBJLoader
-} from './vendor/OBJLoader'
-import {
-  MTLLoader
-} from './vendor/MTLLoader'
+import * as THREE from 'three'
 
-function objPromise(materials) {
-  const loader = new OBJLoader().setMaterials(materials);
+import {
+  ColladaLoader
+} from './vendor/ColladaLoader.js';
+
+function createLoaderPromise(loaderType, assetPath) {
   return new Promise((resolve, reject) => {
-    loader.load(
-      '/assets/cassette/Cassette.obj',
-      function (obj) {
-        resolve(obj)
+    new loaderType().load(
+      assetPath,
+      function (result) {
+        resolve(result)
       },
-      null,
+      function (xhr) {
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      },
       function (error) {
         reject(error)
       }
@@ -21,30 +21,39 @@ function objPromise(materials) {
   })
 }
 
-function mtlPromise() {
-  const loader = new MTLLoader()
-  return new Promise((resolve, reject) => {
-    loader.load(
-      '/assets/cassette/Cassette.mtl',
-      function (materials) {
-        materials.preload()
-        resolve(materials)
-      },
-      null,
-      function (error) {
-        reject(error)
-      }
-    )
+function daePromise() {
+  return createLoaderPromise(ColladaLoader, 'assets/cassette/model.dae')
+}
+
+function cassetteTexturesPromise() {
+  const basePath = 'assets/cassette/textures/'
+  const texturePathMap = {
+    map: 'mat_tape_albedo.jpg',
+    aoMap: 'mat_tape_AO.jpg',
+    alphaMap: 'mat_tape_opacity.jpg',
+    roughnessMap: 'mat_tape_roughness.jpg',
+    metalnessMap: 'mat_tape_metallic.jpg'
+  }
+  const promiseMap = {},
+    resolvedTextureMap = {}
+
+  Object.keys(texturePathMap).forEach(textureType => {
+    const texturePath = basePath + texturePathMap[textureType]
+    promiseMap[textureType] = createLoaderPromise(THREE.TextureLoader, texturePath)
+      .then(result => {
+        resolvedTextureMap[textureType] = result
+        return result
+      })
   })
+
+  return Promise.all(Object.values(promiseMap)).then(() => resolvedTextureMap)
 }
 
 function load() {
-  return mtlPromise()
-    .then(materials => {
-      return objPromise(materials)
-    })
-    .catch(err => {
-      console.error(err)
+  return Promise.all([daePromise(), cassetteTexturesPromise()])
+    .catch(error => {
+      console.error('An error happened');
+      console.error(error)
     })
 }
 
