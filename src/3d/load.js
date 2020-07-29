@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 import {
   ColladaLoader
-} from './vendor/ColladaLoader.js';
+} from '../vendor/ColladaLoader.js';
 
 function createLoaderPromise(loaderType, assetPath) {
   return new Promise((resolve, reject) => {

@@ -1,53 +1,8 @@
-import * as THREE from 'three';
 import {
-  OrbitControls
-} from './vendor/OrbitControls'
-import {
-  load
-} from './load';
+  create3DScene
+} from './3d'
 
-let renderer, scene, camera, controls
-
-function create3DScene() {
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-  controls = new OrbitControls(camera, renderer.domElement);
-
-  camera.position.set(0, 0, 5);
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  controls.update();
-
-  const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.2)
-  scene.add(ambientLight)
-
-  const spotLight = new THREE.SpotLight(0xFFFFFF)
-  spotLight.position.set(-1, 1, 1)
-  spotLight.lookAt(0, 0, 0)
-  scene.add(spotLight)
-
-  load().then(res => {
-    const [dae, textureMap] = res
-    scene.add(dae.scene)
-    const mat = new THREE.MeshStandardMaterial(textureMap)
-    dae.scene.children[0].material = mat
-    animate()
-  })
-}
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  // required if controls.enableDamping or controls.autoRotate are set to true
-  controls.update();
-
-  renderer.render(scene, camera);
-}
-
-const token = 'BQBIceMXKuAjLuwOvQikrpM_Tc86Za62MFFl0nSnK8_YBcgYmk1zrcy_1_wT5EYtrO2aoLeu01lUxzht-wN-cM-YLmU4Ffh7I7tlAYd-U3ul1ypSsr_K_lhIcIAYfgRNjMyUw7ZbMGUDEQhAKrL_21YqCubjA_1i2w';
+const token = 'BQCqHlXNkXLU6NQAcogMNPFkbqtz_4yq6VXkX1oct8ciGzLutdZKP5IMb6IOuQzLM2MwcoVJjyzGu8KgXgn9PNHQ3jla2q1Xuz6OLvGOZHv5QnSCDGwVwfnXzomuhFuay3WXISBtF2Gli3eUG0-dSm-ryngCTtAt1A';
 let player;
 
 function enableSpotifyPlayback() {
@@ -91,7 +46,7 @@ function enableSpotifyPlayback() {
       device_id
     }) => {
       console.log('Ready with Device ID', device_id);
-      playSong()
+      // playSong()
     });
 
     // Not Ready
@@ -136,5 +91,5 @@ function playSong() {
   });
 }
 
-enableSpotifyPlayback()
-// create3DScene()
+// enableSpotifyPlayback()
+create3DScene()
