@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "redom": "^3.27.1",
     "three": "^0.118.3"
   },
   "devDependencies": {
@@ -18,9 +19,11 @@
     "parcel-plugin-static-files-copy": "^2.4.3"
   },
   "staticFiles": {
-    "staticPath": [{
-      "staticPath": "src/assets",
-      "staticOutDir": "assets"
-    }]
+    "staticPath": [
+      {
+        "staticPath": "src/assets",
+        "staticOutDir": "assets"
+      }
+    ]
   }
 }
