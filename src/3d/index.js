@@ -6,21 +6,24 @@ import {
   load
 } from './load';
 
+const RENDERER_WIDTH = 600
+const RENDERER_HEIGHT = 600
+
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
 const VERT_ROTATION_PERCENT = 0.7
 
 let renderer, scene, camera, controls
 
-function create3DScene() {
+function create3DScene(root) {
   renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(RENDERER_WIDTH, RENDERER_HEIGHT);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  document.body.appendChild(renderer.domElement);
+  root.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
 
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+  camera = new THREE.PerspectiveCamera(45, RENDERER_WIDTH / RENDERER_HEIGHT, 1, 10000);
   camera.position.set(-2, 0, 5);
 
   renderCassette(scene)
