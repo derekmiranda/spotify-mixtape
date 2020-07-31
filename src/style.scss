@@ -1,0 +1,53 @@
+@import 'style/font-faces.scss';
+@import 'style/vars.scss';
+
+body {
+  font-family: $main-font, Helvetica, sans-serif;
+}
+
+*::selection {
+  background-color: coral;
+}
+
+#main-container {
+  margin-top: 50px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-btn {
+  background-color: transparent;
+  border: 1px solid $text-color;
+  border-radius: 5px;
+  color: $text-color;
+  user-select: none;
+}
+
+.playlist-ui {
+  width: 100%;
+  padding: 20px;
+
+  &__title {
+    font-family: $title-font;
+    letter-spacing: 0.2rem;
+    text-align: center;
+  }
+}
+
+.tracklist {
+  width: 100%;
+  overflow: scroll;
+  border-collapse: collapse;
+
+  & tr {
+    border-bottom: 1px solid $text-color;
+    padding: 5px;
+  }
+
+  &__placeholder {
+    text-align: center;
+  }
+}
