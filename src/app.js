@@ -36,23 +36,21 @@ const playlistManager = new PlaylistManager({
 create3DScene(root)
 
 const playlistUI = new PlaylistUI({
-  playlistManager
+  playlistManager,
+  root
 })
 playlistUI.render(root)
 
 playlistManager.refreshToken(CLIENT_ID, CLIENT_SECRET)
   .then(() => {
-    playlistManager.getPlaylist()
-      .then(playlistData => {
-        // console.log('Playlist Data: ', playlistData)
-        console.log('Track Data List: ', selectTrackDataList(playlistData))
-      })
+    playlistManager.publishPlaylist()
   })
 
 playerManager.init()
   .then(() => {
     const player = new PlayerUI({
       playerManager,
+      root
     })
-    player.render(root)
+    player.render()
   })
