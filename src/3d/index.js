@@ -6,8 +6,8 @@ import {
   load
 } from './load';
 
-const RENDERER_WIDTH = 600
-const RENDERER_HEIGHT = 600
+const RENDERER_WIDTH = 400
+const RENDERER_HEIGHT = 400
 
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
@@ -24,7 +24,8 @@ function create3DScene(root) {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(45, RENDERER_WIDTH / RENDERER_HEIGHT, 1, 10000);
-  camera.position.set(-2, 0, 5);
+  // TODO: position in relation to canvas dimensions
+  camera.position.set(-1, 0, 3);
 
   renderCassette(scene)
 }
