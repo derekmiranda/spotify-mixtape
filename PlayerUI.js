@@ -48,13 +48,11 @@ class PlayerUI {
   }
 
   renderPlaylist(root) {
-
     this.playlistEl = el('ol.playlist')
   }
 
   playSong() {
-    this.spotifyManager.playSong(TRACK_URI)
-      .then('Playing song...')
+    this.spotifyManager.play(TRACK_URI)
   }
 
   pause() {
