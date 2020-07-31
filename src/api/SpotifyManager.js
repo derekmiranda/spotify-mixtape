@@ -1,4 +1,4 @@
-const API_URL = 'https://api.spotify.com/v1/me/player'
+import * as playerAPI from './player-api'
 
 class SpotifyManager {
   constructor({
@@ -64,61 +64,22 @@ class SpotifyManager {
     })
   }
 
-  playSong(songURI) {
+  play(songURI) {
     if (!this.player) {
       console.error('Player not ready!')
     }
 
-    const {
-      _options: {
-        getOAuthToken,
-        id
-      }
-    } = this.player
-
-    return new Promise((resolve, reject) => {
-      getOAuthToken(accessToken => {
-        const playPutReq = fetch(`${API_URL}/play?device_id=${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            uris: [songURI]
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          },
-        });
-        resolve(playPutReq)
-      })
-    })
+    return playerAPI.play(this.player, songURI)
   }
 
-  resume() {}
   pause() {
     if (!this.player) {
       console.error('Player not ready!')
     }
 
-    const {
-      _options: {
-        getOAuthToken,
-        id
-      }
-    } = this.player
-
-    return new Promise((resolve, reject) => {
-      getOAuthToken(accessToken => {
-        const pausePutReq = fetch(`${API_URL}/pause?device_id=${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          },
-        });
-        resolve(pausePutReq)
-      })
-    })
+    return playerAPI.pause(this.player)
   }
+
   seek() {}
   prevTrack() {}
   nextTrack() {}

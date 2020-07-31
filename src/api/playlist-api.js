@@ -1,0 +1,1 @@
+const PLAYLIST_API_URL = 'https://api.spotify.com/v1/playlists'
