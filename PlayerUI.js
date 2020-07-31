@@ -8,25 +8,12 @@ const TRACK_URI = 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr'
 
 class PlayerUI {
   constructor({
-    spotifyManager,
-    playlistURI
+    playerManager,
   }) {
-    this.spotifyManager = spotifyManager
+    this.playerManager = playerManager
+
     this.playSong = this.playSong.bind(this)
     this.pause = this.pause.bind(this)
-    this.playlistURI = playlistURI
-  }
-
-  awaitPlaylist() {
-    if (!this.playlistURI) return Promise.resolve()
-
-    if (!this.playlistPromise) {
-      this.spotifyManager.fetchPlaylist(this.playlistURI)
-    }
-  }
-
-  set playlistURI(value) {
-
   }
 
   render(root) {
@@ -40,10 +27,6 @@ class PlayerUI {
 
     this.playerContainerEl = el('#player-container', [this.playBtnEl, this.pauseBtnEl, this.prevBtnEl, this.nextBtnEl])
 
-    if (this.playlistURI) {
-      this.renderPlaylist(this.playerContainerEl)
-    }
-
     mount(root, this.playerContainerEl)
   }
 
@@ -52,11 +35,11 @@ class PlayerUI {
   }
 
   playSong() {
-    this.spotifyManager.play(TRACK_URI)
+    this.playerManager.play(TRACK_URI)
   }
 
   pause() {
-    this.spotifyManager.pause()
+    this.playerManager.pause()
   }
 }
 

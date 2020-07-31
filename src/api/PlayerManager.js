@@ -1,15 +1,19 @@
 import * as playerAPI from './player-api'
+import {
+  PubSub
+} from '../lib/PubSub'
 
-class SpotifyManager {
+class PlayerManager extends PubSub {
   constructor({
-    token
+    token,
   }) {
+    super(arguments)
+
     this.token = token
-    this.player
-    this.playlist
   }
 
   // TODO: timeout error
+  // initializing Spotify Playback SDK
   init() {
     return new Promise((resolve, reject) => {
       window.onSpotifyWebPlaybackSDKReady = () => {
@@ -69,7 +73,12 @@ class SpotifyManager {
       console.error('Player not ready!')
     }
 
-    return playerAPI.play(this.player, songURI)
+    if (this._currSongURI !== songURI) {
+      this._currSongURI = songURI
+      return playerAPI.play(this.player, songURI)
+    }
+
+    return playerAPI.play(this.player)
   }
 
   pause() {
@@ -80,11 +89,15 @@ class SpotifyManager {
     return playerAPI.pause(this.player)
   }
 
+  set currSongURI(songURI) {
+    this._currSongURI = songURI
+  }
+
   seek() {}
   prevTrack() {}
   nextTrack() {}
 }
 
 export {
-  SpotifyManager
+  PlayerManager
 }
