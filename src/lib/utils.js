@@ -1,10 +1,21 @@
-function selectTrackDataList(playlistData) {
+// data
+function selectPlaylistData(playlistData) {
   const {
+    name,
     tracks: {
       items: trackDataList
     }
   } = playlistData
 
+  const tracks = selectTrackDataList(trackDataList)
+
+  return {
+    name,
+    tracks
+  }
+}
+
+function selectTrackDataList(trackDataList) {
   return trackDataList.map(selectTrackData)
 }
 
@@ -39,6 +50,29 @@ function convertMSToRuntimeStr(timeMS) {
   return `${mins}:${secs}`
 }
 
+// dom
+function clearChildren(el) {
+  Array.prototype.forEach.call(el.children, child => {
+    child.remove()
+  })
+}
+
+function appendChildren(parent, children) {
+  if (window.DocumentFragment) {
+    const frag = new DocumentFragment
+    children.forEach(child => {
+      frag.appendChild(child)
+    })
+    parent.appendChild(frag)
+  } else {
+    children.forEach(child => {
+      parent.appendChild(child)
+    })
+  }
+}
+
 export {
-  selectTrackDataList
+  selectPlaylistData,
+  clearChildren,
+  appendChildren
 }
