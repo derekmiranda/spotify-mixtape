@@ -7,19 +7,36 @@ import {
 import {
   PlayerManager
 } from './api/PlayerManager';
+import {
+  PlaylistManager
+} from './api/PlaylistManager';
 
-const TOKEN = 'BQBcnFK9ff4HdG-c8kcxGAZCxxvhB9bIuTjYe4cLgLIsmMzE9vWPOxt2kONJT2a3ZABPx-ME9TYF2vFyCUP5vx3XqZAvWKxcO-eR8v8zcMo-XQpiYdhEnaMzaD89is7bvynapxBD37EU0lAYDfnV4s6tistIvrQBNA'
+// TODO: create Spotify auth service
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+
+const PLAYBACK_TOKEN = 'BQCIjHeU_V9vvZt_n-EYHo7nDMnx26q7klS9ATuSJd3SSTOJx32sfnZAT2rCnnvJGjnocofngxvN2Ih46PzpyyvBO1wxX81eXssR7Kg0h7fR2_-1GUVHCA_fNNte7cWcl9AtSEbDb8CxNmd4wM_hYo6aZuohGmDUCA'
 // Jame mixtape <3
-const PLAYLIST_URI = 'spotify:playlist:76Catc5pShxh2vNFvZ13xh'
+const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
 
 const root = document.getElementById('main-container')
 const playerManager = new PlayerManager({
-  token: TOKEN,
-  playlistURI: PLAYLIST_URI
+  token: PLAYBACK_TOKEN,
 })
-// const playlistManager
+const playlistManager = new PlaylistManager({
+  playlistID: PLAYLIST_ID
+})
 
 create3DScene(root)
+
+playlistManager.refreshToken(CLIENT_ID, CLIENT_SECRET)
+  .then(() => {
+    playlistManager.getPlaylist()
+      .then(playlistData => {
+        console.log('Playlist Data: ', playlistData)
+      })
+  })
+
 playerManager.init()
   .then(() => {
     const player = new PlayerUI({

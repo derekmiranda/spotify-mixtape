@@ -1,11 +1,12 @@
 const PLAYLIST_API_URL = 'https://api.spotify.com/v1/playlists'
 
-function get(playlistURI, token) {
-  return fetch(`${PLAYLIST_API_URL}/${playlistURI}`, {
+function get(playlistID, token) {
+  return fetch(`${PLAYLIST_API_URL}/${playlistID}`, {
       headers: {
-        'Authorization': token
+        'Authorization': 'Bearer ' + token
       }
     })
+    .then(res => res.json())
     .then(processPlaylist)
 }
 
