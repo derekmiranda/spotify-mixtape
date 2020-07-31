@@ -13,6 +13,9 @@ import {
 import {
   selectTrackDataList
 } from './lib/utils';
+import {
+  PlaylistUI
+} from './ui/PlaylistUI';
 
 // TODO: create Spotify auth service
 const CLIENT_ID = process.env.CLIENT_ID
@@ -31,6 +34,11 @@ const playlistManager = new PlaylistManager({
 })
 
 create3DScene(root)
+
+const playlistUI = new PlaylistUI({
+  playlistManager
+})
+playlistUI.render(root)
 
 playlistManager.refreshToken(CLIENT_ID, CLIENT_SECRET)
   .then(() => {
