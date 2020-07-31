@@ -3,7 +3,7 @@ import {
 } from './3d'
 import {
   PlayerUI
-} from '../PlayerUI';
+} from './ui/PlayerUI';
 import {
   PlayerManager
 } from './api/PlayerManager';
