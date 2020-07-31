@@ -5,25 +5,25 @@ import {
   PlayerUI
 } from '../PlayerUI';
 import {
-  SpotifyManager
-} from './api/SpotifyManager';
+  PlayerManager
+} from './api/PlayerManager';
 
-const TOKEN = 'BQDRfGOp0ZAw0K7FO5wlZnJrReCboWY5d3xQBQzXY04e7or6sAawsxueQl_bP8rvBb5k_dE_SRlplymgxlXoTdo6oPedLo8pscGKxgxl5w1-qXzC4dLvV3ORcdEc6RvenyLBxfT4IlCKpVTCgabxnLCq34TdMdfljQ'
+const TOKEN = 'BQBcnFK9ff4HdG-c8kcxGAZCxxvhB9bIuTjYe4cLgLIsmMzE9vWPOxt2kONJT2a3ZABPx-ME9TYF2vFyCUP5vx3XqZAvWKxcO-eR8v8zcMo-XQpiYdhEnaMzaD89is7bvynapxBD37EU0lAYDfnV4s6tistIvrQBNA'
 // Jame mixtape <3
 const PLAYLIST_URI = 'spotify:playlist:76Catc5pShxh2vNFvZ13xh'
 
 const root = document.getElementById('main-container')
-const spotifyManager = new SpotifyManager({
-  token: TOKEN
+const playerManager = new PlayerManager({
+  token: TOKEN,
+  playlistURI: PLAYLIST_URI
 })
+// const playlistManager
 
-spotifyManager.init()
+create3DScene(root)
+playerManager.init()
   .then(() => {
-    create3DScene(root)
-
     const player = new PlayerUI({
-      spotifyManager,
-      playlistURI: PLAYLIST_URI
+      playerManager,
     })
     player.render(root)
   })
