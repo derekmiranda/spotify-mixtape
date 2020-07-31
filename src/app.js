@@ -10,6 +10,9 @@ import {
 import {
   PlaylistManager
 } from './api/PlaylistManager';
+import {
+  selectTrackDataList
+} from './utils';
 
 // TODO: create Spotify auth service
 const CLIENT_ID = process.env.CLIENT_ID
@@ -33,7 +36,8 @@ playlistManager.refreshToken(CLIENT_ID, CLIENT_SECRET)
   .then(() => {
     playlistManager.getPlaylist()
       .then(playlistData => {
-        console.log('Playlist Data: ', playlistData)
+        // console.log('Playlist Data: ', playlistData)
+        console.log('Track Data List: ', selectTrackDataList(playlistData))
       })
   })
 

@@ -7,11 +7,6 @@ function get(playlistID, token) {
       }
     })
     .then(res => res.json())
-    .then(processPlaylist)
-}
-
-function processPlaylist(playlistData) {
-  return playlistData
 }
 
 export {
