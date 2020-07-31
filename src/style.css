@@ -3,3 +3,11 @@
   height: 100%;
   display: flex;
 }
+
+.player-btn {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  user-select: none;
+}
