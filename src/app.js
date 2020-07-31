@@ -12,7 +12,7 @@ import {
 } from './api/PlaylistManager';
 import {
   selectTrackDataList
-} from './utils';
+} from './lib/utils';
 
 // TODO: create Spotify auth service
 const CLIENT_ID = process.env.CLIENT_ID
