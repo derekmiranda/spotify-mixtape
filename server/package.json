@@ -1,0 +1,18 @@
+{
+  "name": "spotify-mixtape-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.2.2"
+  },
+  "dependencies": {
+    "spotify-web-api-node": "^4.0.0"
+  }
+}
