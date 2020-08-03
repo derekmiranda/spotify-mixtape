@@ -17,18 +17,12 @@ import {
   PlaylistUI
 } from './ui/PlaylistUI';
 
-// TODO: create Spotify auth service
-const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET
-
 const PLAYBACK_TOKEN = 'BQCIjHeU_V9vvZt_n-EYHo7nDMnx26q7klS9ATuSJd3SSTOJx32sfnZAT2rCnnvJGjnocofngxvN2Ih46PzpyyvBO1wxX81eXssR7Kg0h7fR2_-1GUVHCA_fNNte7cWcl9AtSEbDb8CxNmd4wM_hYo6aZuohGmDUCA'
 // Jame mixtape <3
 const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
 
 const root = document.getElementById('main-container')
-const playerManager = new PlayerManager({
-  token: PLAYBACK_TOKEN,
-})
+// const playerManager = new PlayerManager()
 const playlistManager = new PlaylistManager({
   playlistID: PLAYLIST_ID
 })
@@ -41,16 +35,13 @@ const playlistUI = new PlaylistUI({
 })
 playlistUI.render(root)
 
-playlistManager.refreshToken(CLIENT_ID, CLIENT_SECRET)
-  .then(() => {
-    playlistManager.publishPlaylist()
-  })
+playlistManager.publishPlaylist()
 
-playerManager.init()
-  .then(() => {
-    const player = new PlayerUI({
-      playerManager,
-      root
-    })
-    player.render()
-  })
+// playerManager.init()
+//   .then(() => {
+//     const player = new PlayerUI({
+//       playerManager,
+//       root
+//     })
+//     player.render()
+//   })

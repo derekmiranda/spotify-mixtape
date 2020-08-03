@@ -1,20 +1,14 @@
-const TOKEN_API_URL = 'https://accounts.spotify.com/api/token'
+const AUTH_API_URL = process.env.AUTH_API_URL
+const CLIENT_CREDS_URL = process.env.CLIENT_CREDS_URL
 
-function getClientCredentials(clientId, clientSecret) {
-  return fetch(TOKEN_API_URL, {
-      method: 'POST',
-      body: 'grant_type=client_credentials',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`)
-      }
-    })
+function getClientCredentials() {
+  return fetch(CLIENT_CREDS_URL)
     .then(res => res.json())
-    .then(data => {
-      return data.access_token
-    })
+    .then(({
+      access_token
+    }) => access_token)
     .catch(err => {
-      console.error('Getting client credentials failed: ', err)
+      console.error('Getting access token failed: ', err)
       return err
     })
 }

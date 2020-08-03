@@ -15,21 +15,10 @@ class PlaylistManager extends PubSub {
     this.promiseCache = {}
   }
 
-  refreshToken(clientId, clientSecret) {
-    return tokenAPI.getClientCredentials(clientId, clientSecret)
-      .then(token => {
-        this._clientToken = token
-      })
-  }
-
   publishPlaylist() {
-    if (!this._clientToken) {
-      throw new Error('No client token available yet')
-    }
-
     if (!this.promiseCache.updatePlaylist) {
       this.publish('fetching-playlist')
-      this.promiseCache.updatePlaylist = playlistAPI.get(this.playlistID, this._clientToken)
+      this.promiseCache.updatePlaylist = playlistAPI.get(this.playlistID)
         .catch(err => {
           console.error('Playlist Get Error: ', err)
           this.publish('error', err)
