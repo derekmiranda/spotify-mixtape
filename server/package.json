@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "PORT=3000 node index.js",
+    "dev": "PORT=3000 nodemon index.js",
     "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^26.2.2"
+    "jest": "^26.2.2",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "@hapi/hapi": "^19.2.0",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "spotify-web-api-node": "^4.0.0"
   }
 }
