@@ -1,11 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;}
-</style>
-<path class="st0" d="M432,160h-48v32h32v288H96V192h32v-32H80c-8.8,0-16,7.2-16,16v320c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16
-	V176C448,167.2,440.8,160,432,160L432,160z"/>
-<path class="st0" d="M240,61.2V288h32V61.2l68.7,68.7l22.6-22.6L256,0L148.7,107.3l22.6,22.6L240,61.2z"/>
-</svg>
+version https://git-lfs.github.com/spec/v1
+oid sha256:bc7c42fa55b8db85cf7868edca8ea23803d78c1f22f7fb072d1573b9c8cfe8c4
+size 686

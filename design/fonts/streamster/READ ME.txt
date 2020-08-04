@@ -1,14 +1,3 @@
-﻿
-______________________________________________________________________________
-
-Personnal use only.
-
-For any commercial use, please contact me at contact@youssef-habchi.com
-Thank you.
-______________________________________________________________________________
-
-
-contact@youssef-habchi.com
-
-http://youssef-habchi.com
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:aff9572f0b9705e5706fec4997fddb80c1d6c7c766c2b2352ace5b14cce658b8
+size 338
