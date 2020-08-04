@@ -12,37 +12,47 @@ class PlayerUI {
     root
   }) {
     this.playerManager = playerManager
+    this.playing = false
     this.root = root
     this.mounted = false
 
-    this.playSong = this.playSong.bind(this)
-    this.pause = this.pause.bind(this)
+    this.playNewSong = this.playNewSong.bind(this)
+    this.togglePlayback = this.togglePlayback.bind(this)
   }
 
   render() {
     if (!this.mounted) {
-      this.playBtnEl = el('button.player-btn', 'Play')
-      this.pauseBtnEl = el('button.player-btn', 'Pause')
-      this.prevBtnEl = el('button.player-btn', 'Prev')
-      this.nextBtnEl = el('button.player-btn', 'Next')
+      this.mounted = true
 
-      this.playBtnEl.addEventListener('click', this.playSong)
-      this.pauseBtnEl.addEventListener('click', this.pause)
+      this.playBtnEl = el('button.player-ui__btn', 'Play')
+      this.prevBtnEl = el('button.player-ui__btn', 'Prev')
+      this.nextBtnEl = el('button.player-ui__btn', 'Next')
 
-      this.playerContainerEl = el('#player-container', [this.playBtnEl, this.pauseBtnEl, this.prevBtnEl, this.nextBtnEl])
+      this.playBtnEl.addEventListener('click', this.togglePlayback)
+
+      this.playerContainerEl = el('.player-ui', [this.prevBtnEl, this.playBtnEl, this.nextBtnEl])
 
       mount(this.root, this.playerContainerEl)
     } else {
-
+      // update play btn
+      this.playBtnEl.innerText = this.playing ? 'Pause' : 'Play'
     }
+    return this.playerContainerEl
   }
 
-  playSong() {
-    this.playerManager.play(TRACK_URI)
+  playNewSong(trackURI) {
+    this.playerManager.play(trackURI)
   }
 
-  pause() {
-    this.playerManager.pause()
+  togglePlayback() {
+    this.playing = !this.playing
+    this.render()
+
+    /*     if (this.playing) {
+          this.playerManager.play()
+        } else {
+          this.playerManager.pause()
+        }*/
   }
 }
 
