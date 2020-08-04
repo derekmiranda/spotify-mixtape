@@ -16,9 +16,13 @@ const VERT_ROTATION_PERCENT = 0.7
 let renderer, scene, camera, controls
 
 function createCassetteScene(root) {
-  renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({
+    alpha: true
+  });
+  renderer.setClearAlpha(0.0);
   renderer.setSize(RENDERER_WIDTH, RENDERER_HEIGHT);
   renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.domElement.classList.add('cassette-canvas')
   root.appendChild(renderer.domElement);
 
   scene = new THREE.Scene();
