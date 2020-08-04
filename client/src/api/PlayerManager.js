@@ -16,7 +16,10 @@ class PlayerManager extends PubSub {
         this._awaitSDKReady(),
         this._loadPlaybackSDK()
       ])
-      .then(([player]) => player)
+      .then(([player]) => {
+        this.ready = true
+        return player
+      })
   }
 
   _loadPlaybackSDK() {
