@@ -1,5 +1,5 @@
 import {
-  create3DScene
+  createCassetteScene
 } from './3d'
 import {
   PlayWidget
@@ -14,5 +14,5 @@ const widget = new PlayWidget({
   contextId: PLAYLIST_ID
 })
 
-create3DScene(root)
+createCassetteScene(root)
 widget.render()

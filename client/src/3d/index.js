@@ -15,7 +15,7 @@ const VERT_ROTATION_PERCENT = 0.7
 
 let renderer, scene, camera, controls
 
-function create3DScene(root) {
+function createCassetteScene(root) {
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(RENDERER_WIDTH, RENDERER_HEIGHT);
   renderer.outputEncoding = THREE.sRGBEncoding;
@@ -28,10 +28,6 @@ function create3DScene(root) {
   camera.position.set(-1, 0, 3);
 
   renderCassette(scene)
-}
-
-function renderPlaybackUI(scene) {
-
 }
 
 function renderCassette(scene) {
@@ -72,5 +68,5 @@ function animate() {
 }
 
 export {
-  create3DScene
+  createCassetteScene
 }
