@@ -26,11 +26,11 @@ let playerManager
 if (!isMobile) {
   playerManager = new PlayerManager()
   // start loading Spotify Playback SDK 
-  playerManager.init()
-    .catch(err => {
-      console.error('Error w/ player manager init:')
-      console.error(err)
-    })
+  /*   playerManager.init()
+      .catch(err => {
+        console.error('Error w/ player manager init:')
+        console.error(err)
+      }) */
 }
 
 const root = document.getElementById('main-container')
