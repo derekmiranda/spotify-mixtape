@@ -1,6 +1,6 @@
 import {
   createCassetteScene
-} from './3d'
+} from './3d/cassette'
 import {
   PlayWidget
 } from './ui/PlayWidget'
