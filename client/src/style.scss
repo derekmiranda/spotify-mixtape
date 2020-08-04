@@ -37,6 +37,14 @@ canvas {
   }
 }
 
+.cassette-canvas {
+  z-index: 1;
+}
+
+.bg-canvas {
+  position: absolute;
+}
+
 .player-ui {
   display: flex;
   justify-content: center;
