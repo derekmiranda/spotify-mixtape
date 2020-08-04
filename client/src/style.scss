@@ -6,7 +6,7 @@ body {
 }
 
 *::selection {
-  background-color: coral;
+  background-color: $accent-color;
 }
 
 #main-container {
@@ -18,12 +18,19 @@ body {
   justify-content: center;
 }
 
-.player-btn {
-  background-color: transparent;
-  border: 1px solid $text-color;
-  border-radius: 5px;
-  color: $text-color;
-  user-select: none;
+.player-ui {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  &__btn {
+    background-color: transparent;
+    border: 1px solid $text-color;
+    border-radius: 5px;
+    color: $text-color;
+    user-select: none;
+    margin-right: 5px;
+  }
 }
 
 .playlist-ui {
@@ -41,6 +48,10 @@ body {
   width: 100%;
   overflow: scroll;
   border-collapse: collapse;
+
+  thead {
+    font-size: 1.2rem;
+  }
 
   & tr {
     border-bottom: 1px solid $text-color;
