@@ -11,18 +11,30 @@ import {
   PlaylistManager
 } from './api/PlaylistManager';
 import {
-  selectTrackDataList
-} from './lib/utils';
-import {
   PlaylistUI
 } from './ui/PlaylistUI';
 
-const PLAYBACK_TOKEN = 'BQCIjHeU_V9vvZt_n-EYHo7nDMnx26q7klS9ATuSJd3SSTOJx32sfnZAT2rCnnvJGjnocofngxvN2Ih46PzpyyvBO1wxX81eXssR7Kg0h7fR2_-1GUVHCA_fNNte7cWcl9AtSEbDb8CxNmd4wM_hYo6aZuohGmDUCA'
 // Jame mixtape <3
 const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
 
+// TODO: read user agent to detect mobile clients 
+const isMobile = false
+
+let playerManager
+
+// only show player if on desktop
+if (!isMobile) {
+  playerManager = new PlayerManager()
+  // start loading Spotify Playback SDK 
+  playerManager.init()
+    .catch(err => {
+      console.error('Error w/ player manager init:')
+      console.error(err)
+    })
+}
+
 const root = document.getElementById('main-container')
-// const playerManager = new PlayerManager()
+
 const playlistManager = new PlaylistManager({
   playlistID: PLAYLIST_ID
 })
@@ -31,17 +43,9 @@ create3DScene(root)
 
 const playlistUI = new PlaylistUI({
   playlistManager,
+  playerManager,
   root
 })
 playlistUI.render(root)
 
 playlistManager.publishPlaylist()
-
-// playerManager.init()
-//   .then(() => {
-//     const player = new PlayerUI({
-//       playerManager,
-//       root
-//     })
-//     player.render()
-//   })

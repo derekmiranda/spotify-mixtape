@@ -3,18 +3,34 @@ import {
   PubSub
 } from '../lib/PubSub'
 
-class PlayerManager extends PubSub {
-  constructor({
-    token,
-  }) {
-    super(arguments)
+const PLAYBACK_SDK_URL = 'https://sdk.scdn.co/spotify-player.js'
 
-    this.token = token
+class PlayerManager extends PubSub {
+  constructor() {
+    super(arguments)
   }
 
   // TODO: timeout error
-  // initializing Spotify Playback SDK
   init() {
+    return Promise.all([
+        this._awaitSDKReady(),
+        this._loadPlaybackSDK()
+      ])
+      .then(([player]) => player)
+  }
+
+  _loadPlaybackSDK() {
+    return new Promise((resolve, reject) => {
+      const scriptEl = document.createElement('script')
+      scriptEl.src = PLAYBACK_SDK_URL
+      scriptEl.type = 'text/javascript'
+      scriptEl.onload = resolve
+      scriptEl.onerror = reject
+      document.body.appendChild(scriptEl)
+    })
+  }
+
+  _awaitSDKReady() {
     return new Promise((resolve, reject) => {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = this.player = new Spotify.Player({
@@ -52,7 +68,7 @@ class PlayerManager extends PubSub {
           device_id
         }) => {
           console.log('Ready with Device ID', device_id);
-          resolve()
+          resolve(player)
         });
 
         // Not Ready
