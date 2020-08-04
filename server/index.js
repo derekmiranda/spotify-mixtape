@@ -5,6 +5,7 @@ require('dotenv').config()
 const Hapi = require('@hapi/hapi');
 
 const spotify = require('./lib/spotify-api')
+const methods = require('./methods');
 const routes = require('./routes');
 
 const init = async () => {
@@ -12,18 +13,15 @@ const init = async () => {
     port: process.env.PORT || 3000,
     host: '0.0.0.0',
     routes: {
-      cors: true
+      cors: true,
+      cache: {
+        expiresIn: 30 * 1000,
+        privacy: 'private'
+      }
     }
   });
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: (req, h) => {
-      return 'Hello'
-    }
-  })
-
+  methods(server)
   routes(server)
 
   // initialize Spotify API
