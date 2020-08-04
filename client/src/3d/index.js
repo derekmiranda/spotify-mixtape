@@ -6,8 +6,8 @@ import {
   load
 } from './load';
 
-const RENDERER_WIDTH = 400
-const RENDERER_HEIGHT = 400
+const RENDERER_WIDTH = 600
+const RENDERER_HEIGHT = 600
 
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
