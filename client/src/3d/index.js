@@ -6,8 +6,8 @@ import {
   load
 } from './load';
 
-const RENDERER_WIDTH = 600
-const RENDERER_HEIGHT = 600
+const RENDERER_WIDTH = window.innerWidth
+const RENDERER_HEIGHT = window.innerHeight
 
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
@@ -15,11 +15,11 @@ const VERT_ROTATION_PERCENT = 0.7
 
 let renderer, scene, camera, controls
 
-function createCassetteScene(root) {
+function create3DScene(root) {
   renderer = new THREE.WebGLRenderer({
-    alpha: true
+    logarithmicDepthBuffer: true
   });
-  renderer.setClearAlpha(0.0);
+  // renderer.setClearAlpha(0.0);
   renderer.setSize(RENDERER_WIDTH, RENDERER_HEIGHT);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.domElement.classList.add('cassette-canvas')
@@ -29,9 +29,24 @@ function createCassetteScene(root) {
 
   camera = new THREE.PerspectiveCamera(45, RENDERER_WIDTH / RENDERER_HEIGHT, 1, 10000);
   // TODO: position in relation to canvas dimensions
-  camera.position.set(-1, 0, 3);
+  camera.position.set(0, 0, 3);
 
+  renderWaveMesh(scene)
   renderCassette(scene)
+}
+
+function renderWaveMesh(scene) {
+  const geom = new THREE.PlaneGeometry(100, 100, 32, 32)
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0xff6347,
+    wireframe: true
+  });
+  const mesh = new THREE.Mesh(geom, mat)
+
+  mesh.position.z = -100
+  mesh.rotateX(Math.PI * 2 / 3)
+
+  scene.add(mesh)
 }
 
 function renderCassette(scene) {
@@ -72,5 +87,5 @@ function animate() {
 }
 
 export {
-  createCassetteScene
+  create3DScene
 }

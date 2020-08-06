@@ -1,12 +1,9 @@
 import {
-  createCassetteScene
-} from './3d/cassette'
+  create3DScene
+} from './3d'
 import {
   PlayWidget
 } from './ui/PlayWidget'
-import {
-  createBackground
-} from './3d/background'
 
 // Jame mixtape <3
 const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
@@ -17,6 +14,5 @@ const widget = new PlayWidget({
   contextId: PLAYLIST_ID
 })
 
-createBackground(root)
-createCassetteScene(root)
-widget.render()
+create3DScene(root)
+// widget.render()
