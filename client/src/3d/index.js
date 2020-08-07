@@ -1,13 +1,15 @@
 import * as THREE from 'three';
+
+import {
+  renderWaveMesh,
+  updateWave
+} from './wave'
 import {
   OrbitControls
 } from '../vendor/OrbitControls'
 import {
   load
 } from './load';
-import {
-  perlin3
-} from './perlin'
 
 const RENDERER_WIDTH = window.innerWidth
 const RENDERER_HEIGHT = window.innerHeight
@@ -22,9 +24,7 @@ const VERT_ROTATION_PERCENT = 0.7
 
 let renderer, scene, camera, controls
 
-function create3DScene(root, {
-  currentTime
-}) {
+function create3DScene(root) {
   renderer = new THREE.WebGLRenderer({
     logarithmicDepthBuffer: true
   });
@@ -41,41 +41,6 @@ function create3DScene(root, {
 
   renderWaveMesh(scene)
   renderCassette(scene)
-}
-
-let waveMesh
-
-function renderWaveMesh(scene) {
-  const geom = new THREE.PlaneGeometry(100, 100, 16, 16)
-  const mat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
-    wireframe: true
-  });
-  waveMesh = new THREE.Mesh(geom, mat)
-
-  waveMesh.position.y = -10
-  waveMesh.position.z = -100
-  waveMesh.rotateX(-0.4 * Math.PI)
-
-  scene.add(waveMesh)
-}
-
-function updateWave({
-  magnitude,
-  scale,
-  moveSpeed,
-  speed,
-  time
-}) {
-  const geom = waveMesh.geometry
-  geom.verticesNeedUpdate = true
-  for (let vertex of geom.vertices) {
-    vertex.z = magnitude * perlin3(
-      scale * vertex.x,
-      scale * vertex.y + time * moveSpeed,
-      time * speed
-    )
-  }
 }
 
 function renderCassette(scene) {

@@ -14,7 +14,5 @@ const widget = new PlayWidget({
   contextId: PLAYLIST_ID
 })
 
-create3DScene(root, {
-  currentTime: Date.now()
-})
+create3DScene(root)
 // widget.render()
