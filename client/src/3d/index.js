@@ -5,11 +5,11 @@ import {
   updateWave
 } from './wave'
 import {
-  OrbitControls
-} from '../vendor/OrbitControls'
-import {
   load
 } from './load';
+import {
+  ObjOrbitControls
+} from './orbit';
 
 const RENDERER_WIDTH = window.innerWidth
 const RENDERER_HEIGHT = window.innerHeight
@@ -39,37 +39,47 @@ function create3DScene(root) {
   // TODO: position in relation to canvas dimensions
   camera.position.set(0, 0, 3);
 
-  renderWaveMesh(scene)
-  renderCassette(scene)
-}
-
-function renderCassette(scene) {
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableZoom = false
-  controls.enablePan = false
-  controls.enableKeys = false
-  controls.maxAzimuthAngle = HORIZ_ROTATION_PERCENT * Math.PI / 2
-  controls.minAzimuthAngle = HORIZ_ROTATION_PERCENT * -Math.PI / 2
-  controls.maxPolarAngle = VERT_ROTATION_PERCENT * Math.PI
-  controls.minPolarAngle = (1 - VERT_ROTATION_PERCENT) * Math.PI
-  controls.update();
-
-  const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.2)
-  scene.add(ambientLight)
-
   const spotLight = new THREE.SpotLight(0xFFFFFF)
   spotLight.position.set(-1, 1, 1)
   spotLight.lookAt(0, 0, 0)
   scene.add(spotLight)
 
+  const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.2)
+  scene.add(ambientLight)
+
+  renderWaveMesh(scene)
   load().then(res => {
     const [dae, textureMap] = res
-    scene.add(dae.scene)
-    const mat = new THREE.MeshStandardMaterial(textureMap)
-    dae.scene.children[0].material = mat
-    requestAnimationFrame(animate)
+    renderCassette(scene, dae.scene, textureMap)
   })
 }
+
+let cassetteObj
+
+function renderCassette(scene, cassetteScene, textureMap) {
+  scene.add(cassetteScene)
+  const mat = new THREE.MeshStandardMaterial(textureMap)
+
+  cassetteObj = cassetteScene.children[0]
+  cassetteObj.material = mat
+
+  // controls = new OrbitControls(cassetteObj, renderer.domElement);
+  // controls.enableZoom = false
+  // controls.enablePan = false
+  // controls.enableKeys = false
+
+  /* TODO: apply orbit controls to cassette */
+  controls = new ObjOrbitControls(cassetteObj, renderer.domElement, {})
+  // controls.maxAzimuthAngle = HORIZ_ROTATION_PERCENT * Math.PI / 2
+  // controls.minAzimuthAngle = HORIZ_ROTATION_PERCENT * -Math.PI / 2
+  // controls.maxPolarAngle = VERT_ROTATION_PERCENT * Math.PI
+  // controls.minPolarAngle = (1 - VERT_ROTATION_PERCENT) * Math.PI
+  // controls.update();
+
+  requestAnimationFrame(animate)
+}
+
+let lastTimestamp
 
 function animate(timestamp) {
   requestAnimationFrame(animate);
@@ -82,8 +92,13 @@ function animate(timestamp) {
     time: timestamp
   })
 
-  // required if controls.enableDamping or controls.autoRotate are set to true
   controls.update();
+  // if (lastTimestamp) {
+  //   const rotationDelta = (timestamp - lastTimestamp) * 0.001
+  //   cassetteObj.rotateY(rotationDelta)
+  // }
+
+  // lastTimestamp = timestamp
 
   renderer.render(scene, camera);
 }
