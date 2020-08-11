@@ -1,7 +1,7 @@
 import {
   Vector2,
   Vector3,
-  Spherical,
+  Euler
 } from 'three'
 
 const STATE = {
@@ -35,18 +35,12 @@ export class ObjOrbitControls {
     this.mouseupBind = this.mouseup.bind(this)
 
     // internal vars
-    this._spherical = new Spherical()
-    this._sphericalDelta = new Spherical()
-
+    this._euler = new Euler()
     this._rotateStart = new Vector2()
     this._rotateEnd = new Vector2()
     this._rotateDelta = new Vector2()
 
     this.addEventListeners()
-  }
-
-  update() {
-
   }
 
   mousedown(event) {
@@ -80,19 +74,19 @@ export class ObjOrbitControls {
   handleMouseMoveRotate(event) {
     this._rotateEnd.set(event.clientX, event.clientY)
     this._rotateDelta.subVectors(this._rotateEnd, this._rotateStart).multiplyScalar(this.rotateSpeed)
+
+    const xAngle = 2 * Math.PI * this._rotateDelta.y / this.domEl.clientHeight
+    const yAngle = 2 * Math.PI * this._rotateDelta.x / this.domEl.clientHeight
+
+    // update Euler angle
+    this._euler.x += xAngle
+    this._euler.y += yAngle
+    this.obj.setRotationFromEuler(this._euler)
+
+    // update vars for next update
+    this._rotateStart.copy(this._rotateEnd)
   }
 
-  rotateLeft(angle) {
-    // sphericalDelta.theta -= angle;
-    this.obj.rotateY(-angle)
-  }
-
-  rotateUp(angle) {
-    // sphericalDelta.phi -= angle;
-    this.obj.rotateX(-angle)
-  }
-
-  // TODO: moving across dom element applies local rotation to obj
   // TODO: touch listeners
   addEventListeners() {
     this.domEl.addEventListener('mousemove', this.mousemoveBind, false)

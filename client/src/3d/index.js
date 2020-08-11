@@ -92,7 +92,7 @@ function animate(timestamp) {
     time: timestamp
   })
 
-  controls.update();
+  // controls.update();
   // if (lastTimestamp) {
   //   const rotationDelta = (timestamp - lastTimestamp) * 0.001
   //   cassetteObj.rotateY(rotationDelta)
