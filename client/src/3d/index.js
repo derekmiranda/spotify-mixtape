@@ -63,23 +63,10 @@ function renderCassette(scene, cassetteScene, textureMap) {
   cassetteObj = cassetteScene.children[0]
   cassetteObj.material = mat
 
-  // controls = new OrbitControls(cassetteObj, renderer.domElement);
-  // controls.enableZoom = false
-  // controls.enablePan = false
-  // controls.enableKeys = false
-
-  /* TODO: apply orbit controls to cassette */
   controls = new ObjOrbitControls(cassetteObj, renderer.domElement, {})
-  // controls.maxAzimuthAngle = HORIZ_ROTATION_PERCENT * Math.PI / 2
-  // controls.minAzimuthAngle = HORIZ_ROTATION_PERCENT * -Math.PI / 2
-  // controls.maxPolarAngle = VERT_ROTATION_PERCENT * Math.PI
-  // controls.minPolarAngle = (1 - VERT_ROTATION_PERCENT) * Math.PI
-  // controls.update();
 
   requestAnimationFrame(animate)
 }
-
-let lastTimestamp
 
 function animate(timestamp) {
   requestAnimationFrame(animate);
@@ -91,14 +78,6 @@ function animate(timestamp) {
     moveSpeed: WAVE_MOVESPEED,
     time: timestamp
   })
-
-  // controls.update();
-  // if (lastTimestamp) {
-  //   const rotationDelta = (timestamp - lastTimestamp) * 0.001
-  //   cassetteObj.rotateY(rotationDelta)
-  // }
-
-  // lastTimestamp = timestamp
 
   renderer.render(scene, camera);
 }
