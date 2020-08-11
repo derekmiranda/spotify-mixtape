@@ -4,10 +4,10 @@ import {
   perlin3
 } from './perlin'
 
-let mesh, geom, mat
+let mesh, geom, mat, fog
 
 function renderWaveMesh(scene) {
-  geom = new THREE.PlaneGeometry(100, 100, 16, 16)
+  geom = new THREE.PlaneGeometry(100, 200, 16, 16)
   mat = new THREE.MeshBasicMaterial({
     color: 0xff6347,
     wireframe: true
@@ -18,7 +18,11 @@ function renderWaveMesh(scene) {
   mesh.position.z = -100
   mesh.rotateX(-0.4 * Math.PI)
 
+  // fog to blur out far edge of wave
+  fog = new THREE.Fog(0x000000, 50, 200)
+
   scene.add(mesh)
+  scene.fog = fog
 }
 
 function updateWave({
