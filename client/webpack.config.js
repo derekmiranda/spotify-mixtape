@@ -14,7 +14,7 @@ const plugins = [
   new CopyWebpackPlugin({
     patterns: [{
       from: path.resolve(__dirname, 'src/assets'),
-      to: path.resolve(__dirname, outputPath, '/assets')
+      to: path.resolve(__dirname, outputPath, 'assets')
     }]
   })
 ]
@@ -66,6 +66,9 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     contentBase: outputPath,
+    watchOptions: {
+      watch: true,
+    },
     hot: true
   }
 }
