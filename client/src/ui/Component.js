@@ -1,6 +1,5 @@
 import {
   mount,
-  el,
   unmount
 } from 'redom'
 

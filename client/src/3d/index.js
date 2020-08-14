@@ -18,6 +18,8 @@ const WAVE_SPEED = 0.00001
 const WAVE_MOVESPEED = 0.0005
 const NOISE_SCALE = 10
 
+export const cassetteColor = '#2f4f4f'
+
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
 const VERT_ROTATION_PERCENT = 0.7
@@ -58,14 +60,21 @@ let cassetteObj
 
 function renderCassette(scene, cassetteScene, textureMap) {
   scene.add(cassetteScene)
-  const mat = new THREE.MeshStandardMaterial(textureMap)
+  const mat = new THREE.MeshStandardMaterial({
+    ...textureMap,
+  })
 
+  mat.color.set(cassetteColor)
   cassetteObj = cassetteScene.children[0]
   cassetteObj.material = mat
 
   controls = new ObjOrbitControls(cassetteObj, renderer.domElement, {})
 
   requestAnimationFrame(animate)
+}
+
+function changeCassetteColor(color) {
+  cassetteObj.material.color.set(color)
 }
 
 function animate(timestamp) {
@@ -83,5 +92,6 @@ function animate(timestamp) {
 }
 
 export {
-  create3DScene
+  create3DScene,
+  changeCassetteColor
 }

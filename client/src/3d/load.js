@@ -28,7 +28,7 @@ function daePromise() {
 function cassetteTexturesPromise() {
   const basePath = 'assets/cassette/textures/'
   const texturePathMap = {
-    map: 'mat_tape_albedo.jpg',
+    // map: 'mat_tape_albedo.jpg',
     aoMap: 'mat_tape_AO.jpg',
     alphaMap: 'mat_tape_opacity.jpg',
     roughnessMap: 'mat_tape_roughness.jpg',

@@ -37,6 +37,12 @@ canvas {
   }
 }
 
+.color-picker {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+}
+
 .player-ui {
   display: flex;
   justify-content: center;
