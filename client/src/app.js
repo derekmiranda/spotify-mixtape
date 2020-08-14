@@ -1,3 +1,4 @@
+import './style.scss'
 import {
   create3DScene,
   changeCassetteColor,
