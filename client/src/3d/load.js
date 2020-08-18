@@ -3,6 +3,12 @@ import * as THREE from 'three'
 import {
   ColladaLoader
 } from '../vendor/ColladaLoader.js';
+import {
+  createCanvasTexture
+} from './createCanvasTexture.js';
+import {
+  cassetteColor
+} from './index.js';
 
 function createLoaderPromise(loaderType, assetPath) {
   return new Promise((resolve, reject) => {
@@ -28,9 +34,8 @@ function daePromise() {
 function cassetteTexturesPromise() {
   const basePath = 'assets/cassette/textures/'
   const texturePathMap = {
-    // map: 'mat_tape_albedo.jpg',
+    map: 'mat_tape_albedo.png',
     aoMap: 'mat_tape_AO.jpg',
-    alphaMap: 'mat_tape_opacity.jpg',
     roughnessMap: 'mat_tape_roughness.jpg',
     metalnessMap: 'mat_tape_metallic.jpg'
   }
@@ -39,7 +44,13 @@ function cassetteTexturesPromise() {
 
   Object.keys(texturePathMap).forEach(textureType => {
     const texturePath = basePath + texturePathMap[textureType]
-    promiseMap[textureType] = createLoaderPromise(THREE.TextureLoader, texturePath)
+    let loadPromise
+    if (textureType === 'map') {
+      loadPromise = createCanvasTexture(texturePath, cassetteColor)
+    } else {
+      loadPromise = createLoaderPromise(THREE.TextureLoader, texturePath)
+    }
+    promiseMap[textureType] = loadPromise
       .then(result => {
         resolvedTextureMap[textureType] = result
         return result
@@ -58,5 +69,6 @@ function load() {
 }
 
 export {
-  load
+  load,
+  createLoaderPromise
 }

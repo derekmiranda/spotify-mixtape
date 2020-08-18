@@ -10,6 +10,12 @@ import {
 import {
   ObjOrbitControls
 } from './orbit';
+import {
+  Vector3
+} from 'three';
+import {
+  drawCassette
+} from './createCanvasTexture';
 
 const RENDERER_WIDTH = window.innerWidth
 const RENDERER_HEIGHT = window.innerHeight
@@ -18,7 +24,7 @@ const WAVE_SPEED = 0.00001
 const WAVE_MOVESPEED = 0.0005
 const NOISE_SCALE = 10
 
-export const cassetteColor = '#2f4f4f'
+export const cassetteColor = '#09070E'
 
 // factors for determining how much of a 180-degree range camera can orbit in
 const HORIZ_ROTATION_PERCENT = 0.6
@@ -51,22 +57,31 @@ function create3DScene(root) {
 
   renderWaveMesh(scene)
   load().then(res => {
-    const [dae, textureMap] = res
-    renderCassette(scene, dae.scene, textureMap)
+    const [model, textureMap] = res
+    renderCassette(scene, model.scene, textureMap)
+
+    // re-orient spotlight to cassette
+    spotLight.position.addVectors(
+      model.scene.position,
+      new Vector3(2, 4, 5)
+    )
+    spotLight.lookAt(model.scene)
   })
 }
 
 let cassetteObj
 
 function renderCassette(scene, cassetteScene, textureMap) {
+  cassetteScene.position.set(-1, 0, -2)
   scene.add(cassetteScene)
-  const mat = new THREE.MeshStandardMaterial({
+
+  // cassette sticker texture
+  const cassetteMat = new THREE.MeshStandardMaterial({
     ...textureMap,
   })
 
-  mat.color.set(cassetteColor)
   cassetteObj = cassetteScene.children[0]
-  cassetteObj.material = mat
+  cassetteObj.material = cassetteMat
 
   controls = new ObjOrbitControls(cassetteObj, renderer.domElement, {})
 
@@ -74,7 +89,7 @@ function renderCassette(scene, cassetteScene, textureMap) {
 }
 
 function changeCassetteColor(color) {
-  cassetteObj.material.color.set(color)
+  drawCassette(color)
 }
 
 function animate(timestamp) {

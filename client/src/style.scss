@@ -27,6 +27,9 @@ canvas {
 
 // TODO: breakpoints
 .widget {
+  position: absolute;
+  top: 0;
+  right: 0;
   transform: perspective(1000px) rotateY(-10deg);
   width: 500px;
   height: 600px;
@@ -39,8 +42,9 @@ canvas {
 
 .color-picker {
   position: fixed;
-  top: 50px;
-  left: 50px;
+  top: 0;
+  left: 0;
+  transform: translate(100px, 500px);
 }
 
 .player-ui {
