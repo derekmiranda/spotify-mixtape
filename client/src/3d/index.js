@@ -13,6 +13,7 @@ import {
 import {
   Vector3
 } from 'three';
+
 import {
   drawCassette
 } from './canvasTexture';
@@ -106,7 +107,15 @@ function animate(timestamp) {
   renderer.render(scene, camera);
 }
 
+function resize() {
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  // reset camera aspect ratio
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+}
+
 export {
   create3DScene,
-  changeCassetteColor
+  changeCassetteColor,
+  resize
 }

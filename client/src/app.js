@@ -1,8 +1,13 @@
+import {
+  debounce
+} from 'lodash'
+
 import './style.scss'
 import {
   create3DScene,
   changeCassetteColor,
-  cassetteColor
+  cassetteColor,
+  resize
 } from './3d'
 import {
   PlayWidget
@@ -28,3 +33,6 @@ const colorPicker = new ColorPickerUI({
 create3DScene(root)
 colorPicker.render()
 widget.render()
+
+// resize listener
+window.addEventListener('resize', debounce(resize, 100))

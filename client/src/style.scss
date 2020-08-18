@@ -19,12 +19,6 @@ canvas {
   background-color: $accent-color;
 }
 
-#main-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
 // TODO: breakpoints
 .widget {
   position: absolute;
