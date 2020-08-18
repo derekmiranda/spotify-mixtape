@@ -15,7 +15,7 @@ import {
 } from 'three';
 import {
   drawCassette
-} from './createCanvasTexture';
+} from './canvasTexture';
 
 const RENDERER_WIDTH = window.innerWidth
 const RENDERER_HEIGHT = window.innerHeight

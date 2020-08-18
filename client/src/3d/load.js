@@ -5,7 +5,7 @@ import {
 } from '../vendor/ColladaLoader.js';
 import {
   createCanvasTexture
-} from './createCanvasTexture.js';
+} from './canvasTexture.js';
 import {
   cassetteColor
 } from './index.js';
