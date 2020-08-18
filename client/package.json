@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.20",
     "redom": "^3.27.1",
     "three": "^0.118.3",
     "vanilla-tilt": "git+https://github.com/derekmiranda/vanilla-tilt.js.git"
@@ -43,9 +44,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "staticFiles": {
-    "staticPath": [{
-      "staticPath": "src/assets",
-      "staticOutDir": "assets"
-    }]
+    "staticPath": [
+      {
+        "staticPath": "src/assets",
+        "staticOutDir": "assets"
+      }
+    ]
   }
 }
