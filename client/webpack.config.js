@@ -69,6 +69,5 @@ module.exports = {
     watchOptions: {
       watch: true,
     },
-    hot: true
   }
 }
