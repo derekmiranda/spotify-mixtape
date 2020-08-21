@@ -1,6 +1,10 @@
 import {
   debounce
 } from 'lodash'
+import {
+  el,
+  mount
+} from 'redom'
 
 import './style.scss'
 import {
@@ -15,6 +19,9 @@ import {
 import {
   ColorPickerUI
 } from './ui/ColorPickerUI'
+import {
+  drawText
+} from './3d/canvasTexture'
 
 // Jame mixtape <3
 const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
@@ -30,9 +37,25 @@ const colorPicker = new ColorPickerUI({
   defaultColor: cassetteColor
 })
 
+// 
+function renderMixtapeNameInput(root, onChange) {
+  const inputEl = el('input.name-input')
+
+  inputEl.addEventListener('input', event => {
+    const text = event.target.value
+    if (onChange) {
+      onChange(text)
+    }
+  })
+
+  mount(root, inputEl)
+}
+// 
+
 create3DScene(root)
 colorPicker.render()
 widget.render()
+renderMixtapeNameInput(root, drawText)
 
 // resize listener
 window.addEventListener('resize', debounce(resize, 100))
