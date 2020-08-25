@@ -20,8 +20,11 @@ import {
   ColorPickerUI
 } from './ui/ColorPickerUI'
 import {
-  drawText
+  updateText
 } from './3d/canvasTexture'
+import {
+  getPlaylistId
+} from './lib/query'
 
 // Jame mixtape <3
 const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
@@ -29,7 +32,7 @@ const PLAYLIST_ID = '76Catc5pShxh2vNFvZ13xh'
 const root = document.getElementById('main-container')
 const widget = new PlayWidget({
   root,
-  contextId: PLAYLIST_ID
+  contextId: getPlaylistId() || PLAYLIST_ID
 })
 const colorPicker = new ColorPickerUI({
   root,
@@ -55,7 +58,7 @@ function renderMixtapeNameInput(root, onChange) {
 create3DScene(root)
 colorPicker.render()
 widget.render()
-renderMixtapeNameInput(root, drawText)
+renderMixtapeNameInput(root, updateText)
 
 // resize listener
 window.addEventListener('resize', debounce(resize, 100))
