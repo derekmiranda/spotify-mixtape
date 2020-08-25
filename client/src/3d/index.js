@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import {
+  Vector3
+} from 'three';
 
 import {
   renderWaveMesh,
@@ -10,10 +13,6 @@ import {
 import {
   ObjOrbitControls
 } from './orbit';
-import {
-  Vector3
-} from 'three';
-
 import {
   drawCassette
 } from './canvasTexture';

@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 
-let canvas, ctx, img, texture, lastColor
+const TEXT_COLOR = 'black'
+
+let canvas, ctx, img, texture, text, lastColor
 
 function createCanvasTexture(texturePath, cassetteColor) {
   return loadImg(texturePath)
@@ -39,12 +41,15 @@ function drawTextureCanvas(bgColor) {
   return canvas
 }
 
-function drawText(text) {
-  console.log('drawing')
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+function updateText(_text) {
+  text = _text
   drawCassette(lastColor)
-  ctx.font = '200px Streamster'
-  ctx.fillText(text, 1035, 932)
+}
+
+function drawText(text) {
+  ctx.font = '25px Streamster'
+  ctx.fillStyle = TEXT_COLOR
+  ctx.fillText(text, 129, 117)
 }
 
 function drawCassette(color) {
@@ -52,9 +57,14 @@ function drawCassette(color) {
     texture.needsUpdate = true
   }
 
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = color
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(img, 0, 0)
+
+  if (text && text.trim()) {
+    drawText(text.trim())
+  }
 
   // cache color
   lastColor = color
@@ -63,5 +73,5 @@ function drawCassette(color) {
 export {
   createCanvasTexture,
   drawCassette,
-  drawText
+  updateText
 }
