@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hapi/hapi": "^19.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "spotify-web-api-node": "^4.0.0"
   }
