@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.20",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "redom": "^3.27.1",
     "three": "^0.118.3",
     "vanilla-tilt": "git+https://github.com/derekmiranda/vanilla-tilt.js.git"
